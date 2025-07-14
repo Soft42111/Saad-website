@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Email Verification</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  <style>
+    body {
+      background-color: #111827;
+      color: white;
+      font-family: sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    .verify-box {
+      background-color: #1f2937;
+      padding: 30px;
+      border-radius: 10px;
+      max-width: 400px;
+      width: 100%;
+      box-shadow: 0 0 20px #a855f7aa;
+    }
+    h2 {
+      margin-bottom: 20px;
+      color: #f9fafb;
+    }
+    input, button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 12px;
+      border-radius: 8px;
+      border: none;
+    }
+    input {
+      background: #111827;
+      color: white;
+      border: 1px solid #374151;
+    }
+    button {
+      background-color: #a855f7;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #9333ea;
+    }
+    #message {
+      margin-top: 12px;
+      font-size: 0.95em;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="verify-box">
+    <h2>Verify Your Email</h2>
+    <p id="email-display"></p>
+    <input type="text" id="otp" placeholder="Enter 6-digit code" maxlength="6" />
+    <button onclick="confirmOTP()">Confirm</button>
+    <button onclick="resendCode()">Resend Code</button>
+    <p id="message"></p>
+  </div>
+
+  <script>
+    const SUPABASE_URL = 'https://ygiubaseztffinrekduh.supabase.co';
+    const SUPABASE_KEY =  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlnaXViYXNlenRmZmlucmVrZHVoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTI0MTA3NDQsImV4cCI6MjA2Nzk4Njc0NH0.RfYZHi8j2Y7H_usJrbAONQo3HNVJ_CwWk9-c-HhcTwU'; // replace with your actual Supabase anon key
+    const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    const params = new URLSearchParams(window.location.search);
+    const email = params.get("email");
+const emailDisplay = document.getElementById("email-display");

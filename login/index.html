@@ -1,130 +1,151 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Login - Saad Hassan</title>
+  <meta charset="UTF-8" />
+  <title>Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
   <style>
-    body {
-      background-color: #111827;
-      color: white;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
+    * {
+      box-sizing: border-box;
       margin: 0;
+      padding: 0;
     }
 
-    h1 {
-      font-size: 2.5em;
-      margin-bottom: 30px;
-      text-shadow: 0 0 6px #a855f7, 0 0 12px #ec4899;
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #111827;
+      color: #f9fafb;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
     }
 
-    .login-container {
+    .auth-container {
       background: #1f2937;
       padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 0 15px #9333ea55;
+      border-radius: 16px;
+      width: 100%;
+      max-width: 420px;
+      box-shadow: 0 0 30px rgba(168, 85, 247, 0.2);
+    }
+
+    .tab {
+      padding: 10px 20px;
+      font-size: 1.2em;
+      font-weight: bold;
+      text-align: center;
+      color: #a855f7;
+      margin-bottom: 20px;
+    }
+
+    form {
       display: flex;
       flex-direction: column;
       gap: 15px;
-      width: 90%;
-      max-width: 400px;
+    }
+
+    input {
+      padding: 12px;
+      border: 1px solid #374151;
+      background: #111827;
+      color: white;
+      border-radius: 8px;
+    }
+
+    .password-container {
+      position: relative;
+    }
+
+    .toggle-password {
+      position: absolute;
+      top: 50%;
+      right: 12px;
+      transform: translateY(-50%);
+      cursor: pointer;
+      color: #9ca3af;
+      font-size: 0.9em;
     }
 
     button {
       padding: 12px;
-      border: none;
-      border-radius: 8px;
-      font-size: 1em;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
-
-    .github-btn {
-      background-color: #333;
-      color: white;
-    }
-
-    .custom-btn {
       background-color: #a855f7;
       color: white;
+      font-weight: bold;
+      border: 1px solid #9333ea;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s;
     }
 
-    .email-btn {
-      background-color: #10b981;
-      color: white;
+    button:hover {
+      background-color: #9333ea;
     }
 
-    input {
-      padding: 10px;
-      border-radius: 6px;
-      border: 1px solid #374151;
-      background-color: #1e293b;
-      color: white;
-      font-size: 1em;
-    }
-
-    #message {
-      text-align: center;
-      margin-top: 10px;
+    .error {
+      color: #f87171;
       font-size: 0.9em;
+      margin-top: -8px;
     }
   </style>
 </head>
 <body>
-
-  <h1>Login to Your Account</h1>
-  <div class="login-container">
-    <!-- GitHub Login -->
-    <button class="github-btn" onclick="githubLogin()">Login with GitHub</button>
-
-    <!-- Custom 'Connect X' Login (placeholder) -->
-    <button class="custom-btn" onclick="alert('Connect X Coming Soon')">Login with Connect X</button>
-
-    <!-- Email OTP Login -->
-    <form id="email-form">
-      <input type="email" id="email" placeholder="Enter your email" required />
-      <button class="email-btn" type="submit">Send Magic Link</button>
+  <div class="auth-container">
+    <div class="tab">Login</div>
+    <form id="login-form">
+      <input type="email" id="email" placeholder="Email" required />
+      <div class="password-container">
+        <input type="password" placeholder="Password" id="login-password" required />
+        <span class="toggle-password" onclick="togglePassword('login-password')">Show</span>
+      </div>
+      <button type="submit">Login</button>
+      <p class="error" id="login-error"></p>
     </form>
-
-    <p id="message"></p>
   </div>
 
   <script>
+    // ⛓️ Supabase Config
     const SUPABASE_URL = 'https://ygiubaseztffinrekduh.supabase.co';
-    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlnaXViYXNlenRmZmlucmVrZHVoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTI0MTA3NDQsImV4cCI6MjA2Nzk4Njc0NH0.RfYZHi8j2Y7H_usJrbAONQo3HNVJ_CwWk9-c-HhcTwU';
+    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlnaXViYXNlenRmZmlucmVrZHVoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTI0MTA3NDQsImV4cCI6MjA2Nzk4Njc0NH0.RfYZHi8j2Y7H_usJrbAONQo3HNVJ_CwWk9-c-HhcTwU'; // replace with your actual Supabase anon key; // Replace this
     const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-    async function githubLogin() {
-      const { error } = await supabase.auth.signInWithOAuth({
-        provider: 'github'
-      });
-      if (error) alert("GitHub Login failed: " + error.message);
-    }
-
-    const emailForm = document.getElementById("email-form");
-    const messageEl = document.getElementById("message");
-
-    emailForm.addEventListener("submit", async (e) => {
+    // 👤 Login handler
+    document.getElementById('login-form').addEventListener('submit', async (e) => {
       e.preventDefault();
-      const email = document.getElementById("email").value;
 
-      const { error } = await supabase.auth.signInWithOtp({ email });
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('login-password').value;
+      const errorEl = document.getElementById('login-error');
+
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password
+      });
 
       if (error) {
-        messageEl.textContent = "Error: " + error.message;
-        messageEl.style.color = "#f87171";
+        errorEl.textContent = error.message;
       } else {
-        messageEl.textContent = "Magic Link sent to your email 📩";
-        messageEl.style.color = "#a3e635";
+        errorEl.style.color = "#a3e635";
+        errorEl.textContent = "Login successful ✅";
+        // You can now redirect or show user info
+        setTimeout(() => {
+          window.location.href = '/dashboard.html'; // Update this to your actual dashboard or home
+        }, 1000);
       }
     });
-  </script>
 
+    function togglePassword(id) {
+      const input = document.getElementById(id);
+      const toggle = input.nextElementSibling;
+      if (input.type === "password") {
+        input.type = "text";
+        toggle.textContent = "Hide";
+      } else {
+        input.type = "password";
+        toggle.textContent = "Show";
+      }
+    }
+  </script>
 </body>
 </html>

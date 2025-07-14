@@ -209,13 +209,29 @@
       border-top: 1px solid #334155;
       box-shadow: 0 -5px 10px rgba(168, 85, 247, 0.05);
     }
+    .LoginButtons {
+      background: linear-gradient(135deg, #a855f7, #ec4899);
+      padding: 10px 22px;
+      border-radius: 12px;
+      color: white;
+      font-weight: 600;
+      font-size: 1em;
+      text-decoration: none;
+      box-shadow: 0 4px 14px rgba(168, 85, 247, 0.4);
+    }
+    .LoginButtons:hover {
+      background: linear-gradient(red);
+      box-shadow: 0 6px 16px rgba(168, 85, 247, 0.5);
+      transition: 0.3s ease-in-out;
+    }
   </style>
 </head>
 <body>
     <header style="display: flex; justify-content: flex-end; align-items: center; padding: 20px 40px;">
-        <a href="http://aboutsaad.vercel.app/login"
+        <a class="LoginButtons" href="http://aboutsaad.vercel.app/login"
            style="background: linear-gradient(135deg, #a855f7, #ec4899);
                   padding: 10px 22px;
+                  margin: 10px;
                   border-radius: 12px;
                   color: white;
                   font-weight: 600;
@@ -223,7 +239,20 @@
                   text-decoration: none;
                   box-shadow: 0 4px 14px rgba(168, 85, 247, 0.4);
                   transition: all 0.3s ease-in-out;">
-          Login / Sign Up
+          <i class="fas fa-sign-in-alt"></i>
+          Login
+        </a>
+        <a class="LoginButtons" href="http://aboutsaad.vercel.app/signup"
+           style="background: linear-gradient(135deg, #a855f7, #ec4899);
+                  padding: 10px 22px;
+                  border-radius: 12px;
+                  color: white;
+                  font-weight: 600;
+                  font-size: 1em;
+                  text-decoration: none;
+                  box-shadow: 0 4px 14px rgba(168, 85, 247, 0.4);">
+          <i class="fas fa-sign-in-alt"></i>
+          Sign Up
         </a>
       </header>      
   <h1>Saad Hassan</h1>
