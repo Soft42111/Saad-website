@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <title>Saad Hassan - FrontEnd Dev</title>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  <script src="https://www.google.com/recaptcha/api.js?onload=onLoad&render=explicit" async defer></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
     body {
@@ -15,135 +15,20 @@
       padding: 0;
       text-align: center;
     }
-
     h1 {
       font-size: 3em;
       margin-top: 60px;
       margin-bottom: 20px;
       text-shadow: 0 0 6px #a855f7, 0 0 12px #ec4899, 0 0 18px #d946ef;
     }
-
-    h2 {
-      display: flex;
-      justify-content: center;
-      gap: 4px;
-      font-size: 2.2em;
-      font-weight: bold;
-      margin-top: 20px;
-    }
-
-    .profile {
-      width: 150px;
-      height: 150px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 4px solid #a855f7;
-      box-shadow: 0 0 20px #a855f7aa;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .profile:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 30px #ec4899cc;
-    }
-
-    .char {
-      display: inline-block;
-      background: linear-gradient(45deg, #a855f7, #ec4899);
-      background-clip: text;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation-duration: 2s;
-      animation-iteration-count: infinite;
-      transition: text-shadow 0.3s ease;
-    }
-
-    .char:hover {
-      text-shadow: 0 0 6px #a855f7, 0 0 12px #ec4899, 0 0 18px #d946ef;
-    }
-
-    .up { animation-name: floatUp; }
-    .down { animation-name: floatDown; }
-
-    @keyframes floatUp {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-15px); }
-    }
-
-    @keyframes floatDown {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(15px); }
-    }
-
-    section {
-      padding: 60px 20px;
-      max-width: 800px;
-      margin: auto;
-    }
-
-    #about p {
-      font-size: 1.2em;
-      line-height: 1.6em;
-      color: #d1d5db;
-    }
-
-    #projects h3, #contact h3 {
-      font-size: 2em;
-      margin-bottom: 20px;
-      color: #a855f7;
-    }
-
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 20px;
-    }
-
-    .project-card {
-      background-color: #1f2937;
-      padding: 20px;
-      border-radius: 12px;
-      border: 1px solid #374151;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .project-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 0 15px #a855f777;
-    }
-
-    .project-card a {
-      color: #facc15;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    .social-links {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 20px;
-      font-size: 1.6em;
-      margin-bottom: 40px;
-    }
-
-    .social-links a {
-      color: #d1d5db;
-      transition: color 0.3s ease;
-    }
-
-    .social-links a:hover {
-      color: #a855f7;
-    }
-
     #contact-form {
       display: flex;
       flex-direction: column;
       gap: 15px;
+      max-width: 600px;
+      margin: auto;
     }
-
-    #contact-form input,
-    #contact-form textarea {
+    #contact-form input, #contact-form textarea {
       padding: 12px;
       border-radius: 8px;
       border: 1px solid #374151;
@@ -151,143 +36,28 @@
       color: white;
       font-size: 1em;
     }
-
     #contact-form button {
       padding: 12px;
       background-color: #a855f7;
       color: white;
-      font-size: 1em;
       font-weight: bold;
       border: none;
       border-radius: 8px;
       cursor: pointer;
-      transition: background 0.2s;
     }
-
-    #contact-form button:hover {
-      background-color: #9333ea;
-    }
-
     #form-response {
       margin-top: 10px;
       font-size: 0.95em;
       color: #a3e635;
     }
-
-    .cta-block {
-      margin-top: 50px;
-      background-color: #1f2937;
-      border-left: 4px solid #a855f7;
-      padding: 20px;
-      border-radius: 10px;
-      color: #e5e7eb;
-      text-align: left;
-      max-width: 700px;
-      margin-left: auto;
-      margin-right: auto;
-      box-shadow: 0 0 20px #a855f733;
-    }
-
-    .cta-block h4 {
-      color: #a855f7;
-      font-size: 1.5em;
-      margin-bottom: 10px;
-    }
-
-    .cta-block p {
-      font-size: 1.1em;
-      line-height: 1.6em;
-    }
-
-    footer {
-      background-color: #0f172a;
-      padding: 25px 20px;
-      color: #cbd5e1;
-      font-size: 1em;
-      text-align: center;
-      margin-top: 80px;
-      border-top: 1px solid #334155;
-      box-shadow: 0 -5px 10px rgba(168, 85, 247, 0.05);
-    }
-    .LoginButtons {
-      background: linear-gradient(135deg, #a855f7, #ec4899);
-      padding: 10px 22px;
-      border-radius: 12px;
-      color: white;
-      font-weight: 600;
-      font-size: 1em;
-      text-decoration: none;
-      box-shadow: 0 4px 14px rgba(168, 85, 247, 0.4);
-    }
-    .LoginButtons:hover {
-      background: linear-gradient(red);
-      box-shadow: 0 6px 16px rgba(168, 85, 247, 0.5);
-      transition: 0.3s ease-in-out;
-    }
   </style>
 </head>
 <body>
-    <header style="display: flex; justify-content: flex-end; align-items: center; padding: 20px 40px;">
-        <a class="LoginButtons" href="http://aboutsaad.vercel.app/login"
-           style="background: linear-gradient(135deg, #a855f7, #ec4899);
-                  padding: 10px 22px;
-                  margin: 10px;
-                  border-radius: 12px;
-                  color: white;
-                  font-weight: 600;
-                  font-size: 1em;
-                  text-decoration: none;
-                  box-shadow: 0 4px 14px rgba(168, 85, 247, 0.4);
-                  transition: all 0.3s ease-in-out;">
-          <i class="fas fa-sign-in-alt"></i>
-          Login
-        </a>
-        <a class="LoginButtons" href="http://aboutsaad.vercel.app/signup"
-           style="background: linear-gradient(135deg, #a855f7, #ec4899);
-                  padding: 10px 22px;
-                  border-radius: 12px;
-                  color: white;
-                  font-weight: 600;
-                  font-size: 1em;
-                  text-decoration: none;
-                  box-shadow: 0 4px 14px rgba(168, 85, 247, 0.4);">
-          <i class="fas fa-sign-in-alt"></i>
-          Sign Up
-        </a>
-      </header>      
+
   <h1>Saad Hassan</h1>
-  <img src="/Assets/AI Photo - Saad.jpg" alt="Saad Hassan" class="profile" />
-  <h2 id="title"></h2>
-
-  <section id="about">
-    <h3>About Me</h3>
-    <p>
-      I'm Saad Hassan, a passionate Front-End Developer who loves crafting visually stunning and interactive web experiences.
-      I specialize in HTML, CSS, React, and modern frontend tools. Whether it's a landing page or a full product site — I bring ideas to life with pixel-perfect design and clean code.
-    </p>
-  </section>
-
-  <section id="projects">
-    <h3>Websites I've Built for Clients</h3>
-    <div class="projects-grid">
-      <div class="project-card"><p>👩‍⚕️ Gynaecologist Consultant Website</p><a href="https://gynaetelecare.com" target="_blank">Visit</a></div>
-      <div class="project-card"><p>💼 Modern Portfolio Website</p><a href="https://aliawab.vercel.app" target="_blank">Visit</a></div>
-      <div class="project-card"><p>🎨 Creative Studio Portfolio</p><a href="https://empireresume.vercel.app" target="_blank">Visit</a></div>
-      <div class="project-card"><p>🚀 Mark's Resume Website</p><a href="https://mark-resume.vercel.app" target="_blank">Visit</a></div>
-      <div class="project-card"><p>And Many More 👨🏼‍💻</p></div>
-    </div>
-  </section>
 
   <section id="contact">
     <h3>Contact Me</h3>
-
-    <div class="social-links">
-      <a href="https://github.com/soft42111" target="_blank"><i class="fab fa-github"></i></a>
-      <a href="https://discord.com/users/935757941468954644" target="_blank"><i class="fab fa-discord"></i></a>
-      <a href="https://t.me/soft4211" target="_blank"><i class="fab fa-telegram"></i></a>
-      <a href="https://twitter.com/soft4211" target="_blank"><i class="fab fa-twitter"></i></a>
-      <a href="mailto:soft4211@gmail.com"><i class="fas fa-envelope"></i></a>
-    </div>
 
     <form id="contact-form">
       <input type="text" name="name" placeholder="Your Name" required />
@@ -296,95 +66,70 @@
       <input type="text" name="subject" placeholder="Subject" required />
       <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
 
-      <!-- Add this inside your <form> before the submit button -->
-<div class="g-recaptcha"
-data-sitekey="6LfPi4IrAAAAACnnqLQ9UJS4U_2R5_Xuo7V63Zpl"
-data-callback="onCaptchaSuccess"></div>
-<input type="hidden" id="captcha-token" name="captcha_token">
-      <script>onLoad();</script>
+      <!-- ✅ CAPTCHA Box -->
+      <div id="g-recaptcha" class="g-recaptcha"></div>
+      <input type="hidden" id="captcha-token" name="captcha_token">
 
       <button type="submit">Send Message</button>
       <p id="form-response"></p>
     </form>
-
-    <div class="cta-block">
-      <h4>🚀 Get Your Own Personalized Website</h4>
-      <p>
-        Need a sleek, modern website for yourself or your business? I build fast, beautiful, and responsive websites tailored to your brand and style.
-        Whether you're a consultant, creator, or entrepreneur — let's bring your vision online.
-      </p>
-    </div>
   </section>
 
-  <footer>
-    <p>Made with ❤️ by Saad Hassan — bringing your ideas to life, one pixel at a time.</p>
-  </footer>
-
   <script>
-    const text = "FrontEnd Developer";
-    const container = document.getElementById("title");
-    [...text].forEach((char, i) => {
-      const span = document.createElement("span");
-      span.textContent = char;
-      span.classList.add("char", i % 2 === 0 ? "up" : "down");
-      span.style.animationDelay = `${i * 0.1}s`;
-      container.appendChild(span);
+    // ✅ Render reCAPTCHA on load
+    function onLoad() {
+      if (typeof grecaptcha !== 'undefined') {
+        grecaptcha.render('g-recaptcha', {
+          sitekey: '6LfPi4IrAAAAACnnqLQ9UJS4U_2R5_Xuo7V63Zpl',
+          callback: onCaptchaSuccess
+        });
+      }
+    }
+
+    function onCaptchaSuccess(token) {
+      document.getElementById('captcha-token').value = token;
+    }
+
+    const SUPABASE_URL = 'https://ygiubaseztffinrekduh.supabase.co';
+    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlnaXViYXNlenRmZmlucmVrZHVoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTI0MTA3NDQsImV4cCI6MjA2Nzk4Njc0NH0.RfYZHi8j2Y7H_usJrbAONQo3HNVJ_CwWk9-c-HhcTwU';
+    const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    const form = document.getElementById('contact-form');
+    const responseEl = document.getElementById('form-response');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const captchaToken = document.getElementById('captcha-token').value;
+      if (!captchaToken) {
+        responseEl.textContent = "❌ Please complete the CAPTCHA.";
+        responseEl.style.color = "#f87171";
+        return;
+      }
+
+      const formData = new FormData(form);
+      const name = formData.get('name');
+      const email = formData.get('email');
+      const phone = formData.get('phone');
+      const subject = formData.get('subject');
+      const message = formData.get('message');
+
+      const { error } = await supabase
+        .from('Form Filling')  // ✅ double-check table name
+        .insert([{ name, email, phone, subject, message, captcha_token: captchaToken }]);
+
+      if (error) {
+        responseEl.textContent = "❌ Something went wrong: " + error.message;
+        responseEl.style.color = "#f87171";
+      } else {
+        responseEl.textContent = "✅ Message sent successfully!";
+        responseEl.style.color = "#a3e635";
+        form.reset();
+        grecaptcha.reset();
+        document.getElementById('captcha-token').value = "";
+      }
     });
-  
-  // Initialize reCAPTCHA
-  function onLoad() {
-    if (typeof grecaptcha !== 'undefined') {
-      grecaptcha.render('g-recaptcha', {
-        'sitekey': '6LfPi4IrAAAAACnnqLQ9UJS4U_2R5_Xuo7V63Zpl',
-        'callback': onCaptchaSuccess
-      });
-    }
-  }
-  function onCaptchaSuccess(token) {
-    document.getElementById('captcha-token').value = token;
-  }
-
-  const SUPABASE_URL = 'https://ygiubaseztffinrekduh.supabase.co';
-  const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlnaXViYXNlenRmZmlucmVrZHVoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTI0MTA3NDQsImV4cCI6MjA2Nzk4Njc0NH0.RfYZHi8j2Y7H_usJrbAONQo3HNVJ_CwWk9-c-HhcTwU';
-  const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-
-  const form = document.getElementById('contact-form');
-  const responseEl = document.getElementById('form-response');
-
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-
-    const captchaToken = document.getElementById('captcha-token').value;
-    if (!captchaToken) {
-      responseEl.textContent = "Please verify you're not a robot.";
-      responseEl.style.color = "#f87171";
-      return;
-    }
-
-    const formData = new FormData(form);
-    const name = formData.get('name');
-    const email = formData.get('email');
-    const phone = formData.get('phone');
-    const subject = formData.get('subject');
-    const message = formData.get('message');
-
-    const { error } = await supabase
-      .from('Form Filling')
-      .insert([{ name, email, phone, subject, message, captcha_token: captchaToken }]);
-
-    if (error) {
-      responseEl.textContent = "Something went wrong. Try again!";
-      responseEl.style.color = "#f87171";
-    } else {
-      responseEl.textContent = "Message sent successfully ✅";
-      responseEl.style.color = "#a3e635";
-      form.reset();
-      grecaptcha.reset();
-      document.getElementById('captcha-token').value = ""; // clear hidden field
-    }
-  });
-</script>
->  
+  </script>
 
 </body>
 </html>
