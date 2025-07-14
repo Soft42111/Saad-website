@@ -296,7 +296,9 @@
       <input type="text" name="subject" placeholder="Subject" required />
       <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
 
-      <div class="g-recaptcha" data-sitekey="6LfPi4IrAAAAACnnqLQ9UJS4U_2R5_Xuo7V63Zpl"></div>
+      <div class="g-recaptcha" data-sitekey="6LfPi4IrAAAAACnnqLQ9UJS4U_2R5_Xuo7V63Zpl" data-callback="onCaptchaSuccess"></div>
+<input type="hidden" id="captcha-token" name="captcha_token">
+
 
       <button type="submit">Send Message</button>
       <p id="form-response"></p>
