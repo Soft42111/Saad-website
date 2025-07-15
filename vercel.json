@@ -7,5 +7,12 @@
   "routes": [
     { "src": "/api/contact", "dest": "api/contact.js" },
     { "src": "/(.*)", "dest": "/index.html" }
+    ,{
+      "cleanUrls": true,
+      "rewrites": [
+        { "source": "/login", "destination": "/login/coming-soon.html" },
+        { "source": "/signup", "destination": "/signup/coming-soon.html" }
+      ]
+    }
   ]
 }
