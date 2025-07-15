@@ -7,7 +7,6 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
   <script src="https://www.google.com/recaptcha/api.js?onload=onLoad&render=explicit" async defer></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-
   <style>
     * {
       box-sizing: border-box;
@@ -19,41 +18,61 @@
       color: white;
       margin: 0;
       padding: 0;
-      text-align: center;
-    }
-
-    header {
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      padding: 20px 40px;
-      flex-wrap: wrap;
     }
 
     h1 {
-      font-size: 3em;
+      font-size: 2.8em;
       margin-top: 60px;
       margin-bottom: 20px;
+      text-align: center;
       text-shadow: 0 0 6px #a855f7, 0 0 12px #ec4899, 0 0 18px #d946ef;
     }
 
     h2 {
       display: flex;
       justify-content: center;
+      flex-wrap: wrap;
       gap: 4px;
-      font-size: 2.2em;
+      font-size: 1.8em;
       font-weight: bold;
       margin-top: 20px;
+    }
+
+    header {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      padding: 20px;
+      gap: 12px;
       flex-wrap: wrap;
     }
 
+    .LoginButtons {
+      background: linear-gradient(135deg, #a855f7, #ec4899);
+      padding: 10px 22px;
+      border-radius: 12px;
+      color: white;
+      font-weight: 600;
+      font-size: 1em;
+      text-decoration: none;
+      box-shadow: 0 4px 14px rgba(168, 85, 247, 0.4);
+      transition: 0.3s ease-in-out;
+    }
+
+    .LoginButtons:hover {
+      background: linear-gradient(to right, #f43f5e, #9333ea);
+      box-shadow: 0 6px 16px rgba(168, 85, 247, 0.5);
+    }
+
     .profile {
+      display: block;
       width: 150px;
       height: 150px;
       border-radius: 50%;
       object-fit: cover;
       border: 4px solid #a855f7;
       box-shadow: 0 0 20px #a855f7aa;
+      margin: 20px auto;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
@@ -70,15 +89,19 @@
       -webkit-text-fill-color: transparent;
       animation-duration: 2s;
       animation-iteration-count: infinite;
-      transition: text-shadow 0.3s ease;
     }
 
     .char:hover {
       text-shadow: 0 0 6px #a855f7, 0 0 12px #ec4899, 0 0 18px #d946ef;
     }
 
-    .up { animation-name: floatUp; }
-    .down { animation-name: floatDown; }
+    .up {
+      animation-name: floatUp;
+    }
+
+    .down {
+      animation-name: floatDown;
+    }
 
     @keyframes floatUp {
       0%, 100% { transform: translateY(0); }
@@ -91,15 +114,17 @@
     }
 
     section {
-      padding: 60px 20px;
-      max-width: 800px;
+      padding: 40px 20px;
+      max-width: 960px;
       margin: auto;
     }
 
     #about p {
-      font-size: 1.2em;
-      line-height: 1.6em;
+      font-size: 1.1em;
+      line-height: 1.6;
       color: #d1d5db;
+      text-align: center;
+      margin: 0 auto;
     }
 
     #projects h3,
@@ -107,11 +132,12 @@
       font-size: 2em;
       margin-bottom: 20px;
       color: #a855f7;
+      text-align: center;
     }
 
     .projects-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
       gap: 20px;
     }
 
@@ -121,6 +147,7 @@
       border-radius: 12px;
       border: 1px solid #374151;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
+      text-align: center;
     }
 
     .project-card:hover {
@@ -140,7 +167,7 @@
       flex-wrap: wrap;
       gap: 20px;
       font-size: 1.6em;
-      margin-bottom: 40px;
+      margin-bottom: 30px;
     }
 
     .social-links a {
@@ -152,14 +179,16 @@
       color: #a855f7;
     }
 
-    #contact-form {
+    form#contact-form {
       display: flex;
       flex-direction: column;
       gap: 15px;
+      max-width: 600px;
+      margin: 0 auto;
     }
 
-    #contact-form input,
-    #contact-form textarea {
+    form#contact-form input,
+    form#contact-form textarea {
       padding: 12px;
       border-radius: 8px;
       border: 1px solid #374151;
@@ -168,7 +197,7 @@
       font-size: 1em;
     }
 
-    #contact-form button {
+    form#contact-form button {
       padding: 12px;
       background-color: #a855f7;
       color: white;
@@ -180,14 +209,14 @@
       transition: background 0.2s;
     }
 
-    #contact-form button:hover {
+    form#contact-form button:hover {
       background-color: #9333ea;
     }
 
     #form-response {
       margin-top: 10px;
       font-size: 0.95em;
-      color: #a3e635;
+      text-align: center;
     }
 
     .cta-block {
@@ -197,7 +226,6 @@
       padding: 20px;
       border-radius: 10px;
       color: #e5e7eb;
-      text-align: left;
       max-width: 700px;
       margin-left: auto;
       margin-right: auto;
@@ -226,33 +254,20 @@
       box-shadow: 0 -5px 10px rgba(168, 85, 247, 0.05);
     }
 
-    .LoginButtons {
-      background: linear-gradient(135deg, #a855f7, #ec4899);
-      padding: 10px 22px;
-      border-radius: 12px;
-      color: white;
-      font-weight: 600;
-      font-size: 1em;
-      text-decoration: none;
-      box-shadow: 0 4px 14px rgba(168, 85, 247, 0.4);
-      margin: 5px;
-    }
-
-    .LoginButtons:hover {
-      background: linear-gradient(red);
-      box-shadow: 0 6px 16px rgba(168, 85, 247, 0.5);
-      transition: 0.3s ease-in-out;
-    }
-
     @media (max-width: 600px) {
+      header {
+        justify-content: center;
+        flex-direction: column;
+        gap: 10px;
+      }
+
       h1 {
         font-size: 2em;
       }
 
       h2 {
-        font-size: 1.5em;
-        flex-direction: column;
-        gap: 2px;
+        font-size: 1.4em;
+        text-align: center;
       }
 
       .profile {
@@ -260,21 +275,14 @@
         height: 120px;
       }
 
-      header {
-        justify-content: center;
-      }
-
       .LoginButtons {
         width: 100%;
         text-align: center;
       }
 
-      section, .cta-block {
-        padding: 40px 10px;
-      }
-
-      .cta-block {
-        text-align: center;
+      .cta-block p,
+      #about p {
+        font-size: 1em;
       }
     }
   </style>
@@ -307,14 +315,13 @@
       <div class="project-card"><p>👩‍⚕️ Gynaecologist Consultant Website</p><a href="https://gynaetelecare.com" target="_blank">Visit</a></div>
       <div class="project-card"><p>💼 Modern Portfolio Website</p><a href="https://aliawab.vercel.app" target="_blank">Visit</a></div>
       <div class="project-card"><p>🎨 Creative Studio Portfolio</p><a href="https://empireresume.vercel.app" target="_blank">Visit</a></div>
-      <div class="project-card"><p>🚀 Growth specialist's portfolio Website</p><a href="https://markresume.vercel.app" target="_blank">Visit</a></div>
+      <div class="project-card"><p>🚀 Mark's Resume Website</p><a href="https://markresume.vercel.app" target="_blank">Visit</a></div>
       <div class="project-card"><p>And Many More 👨🏼‍💻</p></div>
     </div>
   </section>
 
   <section id="contact">
     <h3>Contact Me</h3>
-
     <div class="social-links">
       <a href="https://github.com/soft42111" target="_blank"><i class="fab fa-github"></i></a>
       <a href="https://discord.com/users/935757941468954644" target="_blank"><i class="fab fa-discord"></i></a>
@@ -329,10 +336,8 @@
       <input type="tel" name="phone" placeholder="Your Phone (optional)" />
       <input type="text" name="subject" placeholder="Subject" required />
       <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
-
       <div id="g-recaptcha"></div>
-      <input type="hidden" id="captcha-token" name="captcha_token">
-
+      <input type="hidden" id="captcha-token" name="captcha_token" />
       <button type="submit">Send Message</button>
       <p id="form-response"></p>
     </form>
@@ -351,7 +356,6 @@
   </footer>
 
   <script>
-    // Typewriter animation
     const text = "FrontEnd Developer";
     const container = document.getElementById("title");
     [...text].forEach((char, i) => {
@@ -380,6 +384,7 @@
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
+
       const captchaToken = document.getElementById('captcha-token').value;
       if (!captchaToken) {
         responseEl.textContent = "Please verify you're not a robot.";
@@ -405,7 +410,10 @@
         });
 
         const result = await res.json();
-        if (!res.ok) throw new Error(result.error || "Failed to submit.");
+
+        if (!res.ok) {
+          throw new Error(result.error || "Failed to submit.");
+        }
 
         responseEl.textContent = "Message sent successfully ✅";
         responseEl.style.color = "#a3e635";
