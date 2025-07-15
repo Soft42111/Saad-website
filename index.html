@@ -316,7 +316,6 @@
   <footer>
     <p>Made with ❤️ by Saad Hassan — bringing your ideas to life, one pixel at a time.</p>
   </footer>
-
   <script>
     const text = "FrontEnd Developer";
     const container = document.getElementById("title");
@@ -328,58 +327,66 @@
       container.appendChild(span);
     });
   
-  // Initialize reCAPTCHA
-  function onLoad() {
-    if (typeof grecaptcha !== 'undefined') {
-      grecaptcha.render('g-recaptcha', {
-        'sitekey': '6LfPi4IrAAAAACnnqLQ9UJS4U_2R5_Xuo7V63Zpl',
-        'callback': onCaptchaSuccess
-      });
+    // Initialize reCAPTCHA
+    function onLoad() {
+      if (typeof grecaptcha !== 'undefined') {
+        grecaptcha.render('g-recaptcha', {
+          'sitekey': '6LfPi4IrAAAAACnnqLQ9UJS4U_2R5_Xuo7V63Zpl',
+          'callback': onCaptchaSuccess
+        });
+      }
     }
-  }
-  function onCaptchaSuccess(token) {
-    document.getElementById('captcha-token').value = token;
-  }
-
-  const SUPABASE_URL = 'https://ygiubaseztffinrekduh.supabase.co';
-  const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlnaXViYXNlenRmZmlucmVrZHVoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTI0MTA3NDQsImV4cCI6MjA2Nzk4Njc0NH0.RfYZHi8j2Y7H_usJrbAONQo3HNVJ_CwWk9-c-HhcTwU';
-  const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-
-  const form = document.getElementById('contact-form');
-  const responseEl = document.getElementById('form-response');
-
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-
-    const captchaToken = document.getElementById('captcha-token').value;
-    if (!captchaToken) {
-      responseEl.textContent = "Please verify you're not a robot.";
-      responseEl.style.color = "#f87171";
-      return;
+  
+    function onCaptchaSuccess(token) {
+      document.getElementById('captcha-token').value = token;
     }
-
-    const formData = new FormData(form);
-    const name = formData.get('name');
-    const email = formData.get('email');
-    const phone = formData.get('phone');
-    const subject = formData.get('subject');
-    const message = formData.get('message');
-
-    const { error } = await supabase
-      .from('Form Filling')
-      .insert([{ name, email, phone, subject, message, captcha_token: captchaToken }]);
-
-    if (error) {
-      responseEl.textContent = "Something went wrong. Try again!";
-      responseEl.style.color = "#f87171";
-    } else {
-      responseEl.textContent = "Message sent successfully ✅";
-      responseEl.style.color = "#a3e635";
-      form.reset();
-      grecaptcha.reset();
-      document.getElementById('captcha-token').value = ""; // clear hidden field
-    }
-  });
-</script>
+  
+    const form = document.getElementById('contact-form');
+    const responseEl = document.getElementById('form-response');
+  
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+  
+      const captchaToken = document.getElementById('captcha-token').value;
+      if (!captchaToken) {
+        responseEl.textContent = "Please verify you're not a robot.";
+        responseEl.style.color = "#f87171";
+        return;
+      }
+  
+      const formData = new FormData(form);
+      const data = {
+        name: formData.get('name'),
+        email: formData.get('email'),
+        phone: formData.get('phone'),
+        subject: formData.get('subject'),
+        message: formData.get('message'),
+        captcha_token: captchaToken
+      };
+  
+      try {
+        const res = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+  
+        const result = await res.json();
+  
+        if (!res.ok) {
+          throw new Error(result.error || "Failed to submit");
+        }
+  
+        responseEl.textContent = "Message sent successfully ✅";
+        responseEl.style.color = "#a3e635";
+        form.reset();
+        grecaptcha.reset();
+        document.getElementById('captcha-token').value = "";
+      } catch (error) {
+        responseEl.textContent = "Something went wrong. Try again!";
+        responseEl.style.color = "#f87171";
+      }
+    });
+  </script>  
 </body>
 </html>
