@@ -2,11 +2,17 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Saad Hassan - FrontEnd Dev</title>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
   <script src="https://www.google.com/recaptcha/api.js?onload=onLoad&render=explicit" async defer></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       background-color: #111827;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -14,6 +20,14 @@
       margin: 0;
       padding: 0;
       text-align: center;
+    }
+
+    header {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      padding: 20px 40px;
+      flex-wrap: wrap;
     }
 
     h1 {
@@ -30,6 +44,7 @@
       font-size: 2.2em;
       font-weight: bold;
       margin-top: 20px;
+      flex-wrap: wrap;
     }
 
     .profile {
@@ -87,7 +102,8 @@
       color: #d1d5db;
     }
 
-    #projects h3, #contact h3 {
+    #projects h3,
+    #contact h3 {
       font-size: 2em;
       margin-bottom: 20px;
       color: #a855f7;
@@ -209,6 +225,7 @@
       border-top: 1px solid #334155;
       box-shadow: 0 -5px 10px rgba(168, 85, 247, 0.05);
     }
+
     .LoginButtons {
       background: linear-gradient(135deg, #a855f7, #ec4899);
       padding: 10px 22px;
@@ -218,43 +235,60 @@
       font-size: 1em;
       text-decoration: none;
       box-shadow: 0 4px 14px rgba(168, 85, 247, 0.4);
+      margin: 5px;
     }
+
     .LoginButtons:hover {
       background: linear-gradient(red);
       box-shadow: 0 6px 16px rgba(168, 85, 247, 0.5);
       transition: 0.3s ease-in-out;
     }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2em;
+      }
+
+      h2 {
+        font-size: 1.5em;
+        flex-direction: column;
+        gap: 2px;
+      }
+
+      .profile {
+        width: 120px;
+        height: 120px;
+      }
+
+      header {
+        justify-content: center;
+      }
+
+      .LoginButtons {
+        width: 100%;
+        text-align: center;
+      }
+
+      section, .cta-block {
+        padding: 40px 10px;
+      }
+
+      .cta-block {
+        text-align: center;
+      }
+    }
   </style>
 </head>
 <body>
-    <header style="display: flex; justify-content: flex-end; align-items: center; padding: 20px 40px;">
-        <a class="LoginButtons" href="http://aboutsaad.vercel.app/login"
-           style="background: linear-gradient(135deg, #a855f7, #ec4899);
-                  padding: 10px 22px;
-                  margin: 10px;
-                  border-radius: 12px;
-                  color: white;
-                  font-weight: 600;
-                  font-size: 1em;
-                  text-decoration: none;
-                  box-shadow: 0 4px 14px rgba(168, 85, 247, 0.4);
-                  transition: all 0.3s ease-in-out;">
-          <i class="fas fa-sign-in-alt"></i>
-          Login
-        </a>
-        <a class="LoginButtons" href="http://aboutsaad.vercel.app/signup"
-           style="background: linear-gradient(135deg, #a855f7, #ec4899);
-                  padding: 10px 22px;
-                  border-radius: 12px;
-                  color: white;
-                  font-weight: 600;
-                  font-size: 1em;
-                  text-decoration: none;
-                  box-shadow: 0 4px 14px rgba(168, 85, 247, 0.4);">
-          <i class="fas fa-sign-in-alt"></i>
-          Sign Up
-        </a>
-      </header>      
+  <header>
+    <a class="LoginButtons" href="http://aboutsaad.vercel.app/login">
+      <i class="fas fa-sign-in-alt"></i> Login
+    </a>
+    <a class="LoginButtons" href="http://aboutsaad.vercel.app/signup">
+      <i class="fas fa-user-plus"></i> Sign Up
+    </a>
+  </header>
+
   <h1>Saad Hassan</h1>
   <img src="/Assets/AI Photo - Saad.jpg" alt="Saad Hassan" class="profile" />
   <h2 id="title"></h2>
@@ -273,7 +307,7 @@
       <div class="project-card"><p>👩‍⚕️ Gynaecologist Consultant Website</p><a href="https://gynaetelecare.com" target="_blank">Visit</a></div>
       <div class="project-card"><p>💼 Modern Portfolio Website</p><a href="https://aliawab.vercel.app" target="_blank">Visit</a></div>
       <div class="project-card"><p>🎨 Creative Studio Portfolio</p><a href="https://empireresume.vercel.app" target="_blank">Visit</a></div>
-      <div class="project-card"><p>🚀 Mark's Resume Website</p><a href="https://markresume.vercel.app" target="_blank">Visit</a></div>
+      <div class="project-card"><p>🚀 Growth specialist's portfolio Website</p><a href="https://markresume.vercel.app" target="_blank">Visit</a></div>
       <div class="project-card"><p>And Many More 👨🏼‍💻</p></div>
     </div>
   </section>
@@ -296,9 +330,8 @@
       <input type="text" name="subject" placeholder="Subject" required />
       <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
 
-      <!-- Add this inside your <form> before the submit button -->
-<<div id="g-recaptcha"></div>
-<input type="hidden" id="captcha-token" name="captcha_token">
+      <div id="g-recaptcha"></div>
+      <input type="hidden" id="captcha-token" name="captcha_token">
 
       <button type="submit">Send Message</button>
       <p id="form-response"></p>
@@ -316,6 +349,7 @@
   <footer>
     <p>Made with ❤️ by Saad Hassan — bringing your ideas to life, one pixel at a time.</p>
   </footer>
+
   <script>
     // Typewriter animation
     const text = "FrontEnd Developer";
@@ -327,8 +361,7 @@
       span.style.animationDelay = `${i * 0.1}s`;
       container.appendChild(span);
     });
-  
-    // reCAPTCHA load
+
     function onLoad() {
       if (typeof grecaptcha !== 'undefined') {
         grecaptcha.render('g-recaptcha', {
@@ -337,24 +370,23 @@
         });
       }
     }
-  
+
     function onCaptchaSuccess(token) {
       document.getElementById('captcha-token').value = token;
     }
-  
+
     const form = document.getElementById('contact-form');
     const responseEl = document.getElementById('form-response');
-  
+
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
-  
       const captchaToken = document.getElementById('captcha-token').value;
       if (!captchaToken) {
         responseEl.textContent = "Please verify you're not a robot.";
         responseEl.style.color = "#f87171";
         return;
       }
-  
+
       const formData = new FormData(form);
       const data = {
         name: formData.get('name'),
@@ -364,23 +396,19 @@
         message: formData.get('message'),
         captcha_token: captchaToken
       };
-  
+
       try {
         const res = await fetch('/api/contact', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(data)
         });
-  
+
         const result = await res.json();
-  
-        if (!res.ok) {
-          throw new Error(result.error || "Failed to submit.");
-        }
-  
+        if (!res.ok) throw new Error(result.error || "Failed to submit.");
+
         responseEl.textContent = "Message sent successfully ✅";
         responseEl.style.color = "#a3e635";
-  
         form.reset();
         grecaptcha.reset();
         document.getElementById('captcha-token').value = "";
@@ -390,6 +418,6 @@
         responseEl.style.color = "#f87171";
       }
     });
-  </script>  
+  </script>
 </body>
 </html>
